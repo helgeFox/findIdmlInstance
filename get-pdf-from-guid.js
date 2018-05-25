@@ -39,7 +39,7 @@ function findInstance(guid, options) {
 		    	const pdfUri = buildUri(result.recordset[0], options);
 				const expl = require('child_process').exec(`explorer.exe /select,${pdfUri}`);
 				expl.stderr.on('data', (data) => {
-				  reject(new Error(data.toString()))
+					reject(new Error(data.toString()))
 				});
 				expl.on('exit', code => {
 					resolve(pdfUri);

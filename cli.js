@@ -52,6 +52,11 @@ const cli = meow(`
 
 // console.log(cli.input[0], cli.flags);
 
+if (!cli.input[0]) {
+  console.log(chalk.red('No arguments. You need to supply a GUID.'));
+  process.exit(1);
+}
+
 let operation = fii.getIdmlFromGuid;
 if (cli.flags.pdf !== undefined)
   operation = fii.getPdfFromGuid
