@@ -1,6 +1,6 @@
 {
-  "name": "@foxpublish/findIdmlInstance",
-  "version": "1.0.0",
+  "name": "@foxpublish/find-idml-instance",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "bin": {
