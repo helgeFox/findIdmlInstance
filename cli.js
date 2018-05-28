@@ -5,12 +5,12 @@ const cp = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
-const thisModuleName = 'findIdmlInstance';
+const pkg = require('./package.json');
 
 function isLinked() {
   try {
         const npmRoot = String(cp.execSync('npm root -g', { encoding: 'utf8' })).trim();
-        const p = path.resolve(npmRoot + '/' + thisModuleName);
+        const p = path.resolve(npmRoot + '/' + pkg.name);
         const stats = fs.lstatSync(p);
         return stats.isSymbolicLink();
     }
@@ -67,6 +67,6 @@ operation(cli.input[0], cli.flags)
     process.exit();
 	})
 	.catch(err => {
-		console.log(chalk.red('Error'), err);
+		console.log(chalk.red('Error'), err.message);
     process.exit(1);
 	});

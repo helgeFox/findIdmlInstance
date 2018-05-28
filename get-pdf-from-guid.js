@@ -50,14 +50,14 @@ function findInstance(guid, options) {
 		    }
 		}).catch(err => {
 			// console.log('Error', err)
-			reject(err)
+			reject(err);
 		})
 
 		sql.on('error', err => {
 			// console.log('SQL error...', err)
-			reject(err)
+			reject(err);
 		})
 	})
 }
 
-exports = module.exports = findInstance
+exports = module.exports = findInstance;
