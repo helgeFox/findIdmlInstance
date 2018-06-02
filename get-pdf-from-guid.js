@@ -42,19 +42,24 @@ function findInstance(guid, options) {
 					reject(new Error(data.toString()))
 				});
 				expl.on('exit', code => {
+					sql.close();
 					resolve(pdfUri);
 				});
 		    }
 		    else {
+		    	sql.close();
 		    	reject(new Error('Nothing found in database'))
 		    }
 		}).catch(err => {
 			// console.log('Error', err)
+			console.log('YES!');
+			sql.close();
 			reject(err);
 		})
 
 		sql.on('error', err => {
 			// console.log('SQL error...', err)
+			sql.close();
 			reject(err);
 		})
 	})
