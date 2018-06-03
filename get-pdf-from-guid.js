@@ -21,7 +21,7 @@ const config = {
 
 function buildUri(set, options) {
 	const baseUrl = environments.STAGE; // TODO: switch on environment to support PROD documents
-	const folder = (set.ID + '').substr(0, 3) + (options.pdf === 'hi' ? '000CMYK' : '000RGB');
+	const folder = (set.ID + '').substr(0, 3) + (options.quality === 'hi' ? '000CMYK' : '000RGB');
 	const file = set.Oppdrag_ID + '_' + set.ID + '.pdf';
 	return path.join(baseUrl, folder, file);
 }
