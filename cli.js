@@ -15,7 +15,7 @@ function isLinked() {
         return stats.isSymbolicLink();
     }
     catch (err) {
-        console.error('\n', err.stack, '\n');
+        // console.error('\n', err.stack, '\n');
     }
 }
 
@@ -62,9 +62,15 @@ if (cli.flags.pdf !== undefined)
   operation = fii.getPdfFromGuid
 operation(cli.input[0], cli.flags)
 	.then(result => {
-		console.log(chalk.green('Success!'));
-    // console.log(result);
-    process.exit();
+    const expl = require('child_process').exec(`explorer.exe /select,${result}`);
+    expl.stderr.on('data', (data) => {
+      console.log(chalk.red('Something went wrong opening the folder'), data.toString());
+      process.exit(1);
+    });
+    expl.on('exit', code => {
+      console.log(chalk.green('Success!'));
+      process.exit();
+    });
 	})
 	.catch(err => {
 		console.log(chalk.red('Error'), err.message);

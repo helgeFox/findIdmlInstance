@@ -35,24 +35,17 @@ function findInstance(guid, options) {
 		    .input('input_parameter', sql.NVarChar, guid)
 		    .query('select * from Salgsoppgave where GuidEditorId = @input_parameter')
 		}).then(result => {
+      	sql.close();
 		    if (result.recordsets && result.recordsets.length > 0) {
 		    	const pdfUri = buildUri(result.recordset[0], options);
-				const expl = require('child_process').exec(`explorer.exe /select,${pdfUri}`);
-				expl.stderr.on('data', (data) => {
-					reject(new Error(data.toString()))
-				});
-				expl.on('exit', code => {
-					sql.close();
 					resolve(pdfUri);
-				});
 		    }
 		    else {
 		    	sql.close();
 		    	reject(new Error('Nothing found in database'))
 		    }
 		}).catch(err => {
-			// console.log('Error', err)
-			console.log('YES!');
+			// console.log('Error', err);
 			sql.close();
 			reject(err);
 		})
