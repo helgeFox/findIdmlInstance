@@ -30,12 +30,12 @@ function findInstance(guid, options) {
 	// if (options.env && options.env !== 'STAGE')
 	// 	config.server = environments[options.env];
 	return new Promise((resolve, reject) => {
-		sql.connect(config).then(pool => {
+		sql.ConnectionPool(config).connect().then(pool => {
 		    return pool.request()
 		    .input('input_parameter', sql.NVarChar, guid)
 		    .query('select * from Salgsoppgave where GuidEditorId = @input_parameter')
 		}).then(result => {
-      	sql.close();
+      		sql.close();
 		    if (result.recordsets && result.recordsets.length > 0) {
 		    	const pdfUri = buildUri(result.recordset[0], options);
 					resolve(pdfUri);

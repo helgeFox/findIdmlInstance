@@ -73,6 +73,6 @@ operation(cli.input[0], cli.flags)
     });
 	})
 	.catch(err => {
-		console.log(chalk.red('Error'), err.message);
+		console.log(chalk.red('Error'), err.message ? err.message : err);
     process.exit(1);
 	});
