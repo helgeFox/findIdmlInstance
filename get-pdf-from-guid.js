@@ -30,7 +30,7 @@ function findInstance(guid, options) {
 	// if (options.env && options.env !== 'STAGE')
 	// 	config.server = environments[options.env];
 	return new Promise((resolve, reject) => {
-		sql.ConnectionPool(config).connect().then(pool => {
+		new sql.ConnectionPool(config).connect().then(pool => {
 		    return pool.request()
 		    .input('input_parameter', sql.NVarChar, guid)
 		    .query('select * from Salgsoppgave where GuidEditorId = @input_parameter')
